@@ -1,23 +1,22 @@
-# kubernetes/deployment.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nalabheemas-bot-deployment  # <-- New Name
-  namespace: nalabheemas-bot       # <-- New Namespace
+  name: antep-kitchen-bot-deployment
+  namespace: antep-kitchen-bot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nalabheemas-bot # <-- New Label
+      app: antep-kitchen-bot
   template:
     metadata:
       labels:
-        app: nalabheemas-bot # <-- New Label
+        app: antep-kitchen-bot
     spec:
       containers:
-      - name: bot-container # <-- New Container Name
-        image: kishanthorat111/nalabheemas-bot:latest # <-- New Docker Image
-        resources: # Add resource limits for stability
+      - name: bot-container
+        image: kishanthorat111/antep-kitchen-bot:latest
+        resources: # Resource limits for stability
           requests:
             memory: "128Mi"
             cpu: "100m"
@@ -26,7 +25,7 @@ spec:
             cpu: "500m"
         envFrom:
           - secretRef:
-              name: nalabheemas-secrets # <-- New Secret
+              name: antep-kitchen-secrets
         volumeMounts:
         - name: gcp-credentials-volume
           mountPath: /app/credentials.json
@@ -34,7 +33,7 @@ spec:
       volumes:
       - name: gcp-credentials-volume
         secret:
-          secretName: nalabheemas-secrets # <-- New Secret
+          secretName: antep-kitchen-secrets
           items:
           - key: credentials.json
             path: credentials.json
